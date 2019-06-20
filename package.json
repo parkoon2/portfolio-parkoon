@@ -1,0 +1,32 @@
+{
+  "name": "portfolio-parkoon",
+  "version": "1.0.0",
+  "description": "React & Next Portfolio",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parkoon/portfolio-parkoon.git"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "redux",
+    "next"
+  ],
+  "author": "parkoon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parkoon/portfolio-parkoon/issues"
+  },
+  "homepage": "https://github.com/parkoon/portfolio-parkoon#readme",
+  "dependencies": {
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
