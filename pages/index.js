@@ -4,7 +4,7 @@ const Index = () => {
   return (
     <>
       <h1>Index page </h1>
-      <Header />
+      <Header title={'Im title'}>Children</Header>
     </>
   )
 }
