@@ -1,11 +1,14 @@
 import Link from 'next/link'
 
+import '../../styles/main.scss'
 class Header extends React.Component {
   render() {
-    debugger
+    // debugger
     const title = this.props.title
     return (
       <>
+        <p className="customClass"> I am styled P element </p>
+        <p className="customClassFromFile"> I am styled P element </p>
         <Link href="/">
           <a> Home </a>
         </Link>
@@ -21,6 +24,17 @@ class Header extends React.Component {
         <Link href="/cv">
           <a> CV </a>
         </Link>
+
+        <style jsx>
+          {`
+            a {
+              font-size: 20px;
+            }
+            .customClass {
+              color: red;
+            }
+          `}
+        </style>
       </>
     )
   }
