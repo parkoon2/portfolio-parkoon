@@ -1,11 +1,11 @@
 import Header from '../components/shared/Header'
+import BaseLayout from '../components/layouts/BaseLayout'
 
 const Index = () => {
   return (
-    <>
+    <BaseLayout>
       <h1>Index page </h1>
-      <Header title={'Im title'}>Children</Header>
-    </>
+    </BaseLayout>
   )
 }
 export default Index
