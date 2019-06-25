@@ -5,7 +5,7 @@ import axios from 'axios'
 const Index = props => {
   return (
     <BaseLayout>
-      <h1>Index Page </h1>
+      <h1>Index Pagedd</h1>
     </BaseLayout>
   )
 }
