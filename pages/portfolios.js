@@ -10,7 +10,11 @@ const Portfolios = props => {
       <h1>Portfolio Page</h1>
       <ul>
         {posts.map(post => (
-          <Link key={post.id} href={`/portfolio?title=${post.title}`}>
+          <Link
+            key={post.id}
+            as={`/portfoli/${post.id}`}
+            href={`/portfolio?title=${post.title}`}
+          >
             <a style={{ fontSize: '20px', display: 'flex' }}> {post.title} </a>
           </Link>
         ))}
