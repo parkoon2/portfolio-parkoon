@@ -1,6 +1,7 @@
 import BaseLayout from '../components/layouts/BaseLayout'
 import axios from 'axios'
-import Link from 'next/link'
+// import Link from 'next/link'
+import { Link } from '../routes'
 
 const Portfolios = props => {
   const { posts } = props
@@ -10,11 +11,12 @@ const Portfolios = props => {
       <h1>Portfolio Page</h1>
       <ul>
         {posts.map(post => (
-          <Link
+          <Link key={post.id} route={`/portfolio/${post.id}`}>
+            {/* <Link
             key={post.id}
             as={`/portfolio/${post.id}`}
             href={`/portfolio?id=${post.id}`}
-          >
+          > */}
             <a style={{ fontSize: '20px', display: 'flex' }}> {post.title} </a>
           </Link>
         ))}
