@@ -3,13 +3,9 @@ import BaseLayout from '../components/layouts/BaseLayout'
 import axios from 'axios'
 
 const Index = props => {
-  console.log('========= LOG START =======')
-  console.log(props)
-  console.log('========= LOG END =========')
-
   return (
     <BaseLayout>
-      <h1>{JSON.stringify(props)} </h1>
+      <h1>Index Page </h1>
     </BaseLayout>
   )
 }

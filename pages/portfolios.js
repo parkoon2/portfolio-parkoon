@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const Portfolios = props => {
   const { posts } = props
-
+  console.log(posts)
   return (
     <BaseLayout>
       <h1>Portfolio Page</h1>
@@ -12,8 +12,8 @@ const Portfolios = props => {
         {posts.map(post => (
           <Link
             key={post.id}
-            as={`/portfoli/${post.id}`}
-            href={`/portfolio?title=${post.title}`}
+            as={`/portfolio/${post.id}`}
+            href={`/portfolio?id=${post.id}`}
           >
             <a style={{ fontSize: '20px', display: 'flex' }}> {post.title} </a>
           </Link>

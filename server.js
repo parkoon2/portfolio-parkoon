@@ -9,6 +9,13 @@ app
   .prepare()
   .then(() => {
     const server = express()
+    console.log('prepared')
+    server.get('/portfolio/:id', (req, res) => {
+      console.log('여기야')
+      const actualPage = '/portfolio'
+      const queryParams = { id: req.params.id }
+      app.render(req, res, actualPage, queryParams)
+    })
 
     server.get('*', (req, res) => {
       return handle(req, res)
