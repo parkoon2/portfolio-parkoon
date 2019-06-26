@@ -7,7 +7,7 @@ const Portfolios = props => {
   const { posts } = props
   console.log(posts)
   return (
-    <BaseLayout>
+    <>
       <h1>Portfolio Page</h1>
       <ul>
         {posts.map(post => (
@@ -21,7 +21,7 @@ const Portfolios = props => {
           </Link>
         ))}
       </ul>
-    </BaseLayout>
+    </>
   )
 }
 

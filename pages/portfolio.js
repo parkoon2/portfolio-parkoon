@@ -8,10 +8,10 @@ class Portfolio extends React.Component {
 
   render() {
     return (
-      <BaseLayout>
+      <>
         <h1>Portfolio Page</h1>
         <h2>{this.props.post.title}</h2>
-      </BaseLayout>
+      </>
     )
   }
 }
