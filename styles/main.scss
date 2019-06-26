@@ -1,9 +1,9 @@
 @import './shared/fonts';
+
+// page
+@import './index';
+
 html,
 body {
   font-family: 'Montserrat', 'Helvetica' !important;
-}
-
-.customClassFromFile {
-  color: blue;
 }

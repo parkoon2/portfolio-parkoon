@@ -21,7 +21,7 @@ class MyApp extends App {
 
     return (
       <Container>
-        <BaseLayout>
+        <BaseLayout className="cover">
           <Component {...pageProps} />
         </BaseLayout>
       </Container>
