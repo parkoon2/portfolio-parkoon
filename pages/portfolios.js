@@ -1,4 +1,6 @@
 import BaseLayout from '../components/layouts/BaseLayout'
+import BasePage from '../components/BasePage'
+
 import axios from 'axios'
 // import Link from 'next/link'
 import { Link } from '../routes'
@@ -7,7 +9,7 @@ const Portfolios = props => {
   const { posts } = props
   console.log(posts)
   return (
-    <>
+    <BasePage>
       <h1>Portfolio Page</h1>
       <ul>
         {posts.map(post => (
@@ -21,7 +23,7 @@ const Portfolios = props => {
           </Link>
         ))}
       </ul>
-    </>
+    </BasePage>
   )
 }
 
