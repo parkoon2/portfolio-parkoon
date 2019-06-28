@@ -3,6 +3,9 @@
 // page
 @import './index';
 
+//components
+@import './header';
+
 html,
 body {
   font-family: 'Montserrat', 'Helvetica' !important;
@@ -13,4 +16,8 @@ body {
   font-weight: bold;
   color: white;
   letter-spacing: 2px;
+}
+
+.absolute {
+  position: absolute;
 }
