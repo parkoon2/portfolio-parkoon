@@ -10,20 +10,8 @@ import {
   NavLink
 } from 'reactstrap'
 
-import createAuth0Client from '@auth0/auth0-spa-js'
-
 import auth0 from '../../services/auth0'
 class Login extends React.Component {
-  async componentDidMount() {
-    this.auth = await createAuth0Client({
-      domain: 'devparkoon.auth0.com',
-      client_id: 'Ob9s1fta2rmml7vPXRNBq0UnFu5Y7Cgr',
-      redirect_uri: 'http://localhost:3000/callback',
-      responseType: 'token id_token',
-      scope: 'openid profile'
-    })
-  }
-
   render() {
     return (
       <a

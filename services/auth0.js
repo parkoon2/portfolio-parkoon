@@ -15,6 +15,17 @@ class Auth {
     console.log('login!?')
     this.auth0.authorize()
   }
+
+  setSession = () => {}
+
+  handleAuthentication = () => {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult)
+      } else if (err) {
+      }
+    })
+  }
 }
 
 const auth0Client = new Auth()
