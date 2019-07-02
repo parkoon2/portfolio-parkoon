@@ -19,11 +19,16 @@ class Auth {
   setSession = () => {}
 
   handleAuthentication = () => {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult)
-      } else if (err) {
-      }
+    return new Promise((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.setSession(authResult)
+          resolve()
+        } else if (err) {
+          reject(err)
+          console.error(err)
+        }
+      })
     })
   }
 }
