@@ -10,40 +10,37 @@ import {
   NavLink
 } from 'reactstrap'
 
+import createAuth0Client from '@auth0/auth0-spa-js'
+
 import auth0 from '../../services/auth0'
+class Login extends React.Component {
+  async componentDidMount() {
+    this.auth = await createAuth0Client({
+      domain: 'devparkoon.auth0.com',
+      client_id: 'Ob9s1fta2rmml7vPXRNBq0UnFu5Y7Cgr',
+      redirect_uri: 'http://localhost:3000/callback',
+      responseType: 'token id_token',
+      scope: 'openid profile'
+    })
+  }
 
-const Menu = ({ title }) => {
-  return (
-    <Link>
-      <a className="nav-link port-navbar-link clickable" href="/">
-        {title}
-      </a>
-    </Link>
-  )
-}
-
-const Login = () => {
-  return (
-    <Link>
+  render() {
+    return (
       <a
-        onClick={auth0.login}
+        onClick={() => {
+          auth0.login()
+        }}
         className="nav-link port-navbar-link clickable"
-        href="/"
+        // href="/"
       >
         LOGIN
       </a>
-    </Link>
-  )
+    )
+  }
 }
 
 const Logout = () => {
-  return (
-    <Link>
-      <a className="nav-link port-navbar-link clickable" href="/">
-        LOGOUT
-      </a>
-    </Link>
-  )
+  return <a className="nav-link port-navbar-link clickable">LOGOUT</a>
 }
 
 export default class Example extends React.Component {
@@ -76,19 +73,31 @@ export default class Example extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem className="port-navbar-item">
-                <Menu title={'HOME'} />
+                <Link href="/">
+                  <a className="nav-link port-navbar-link clickable">HOME</a>
+                </Link>
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Menu title={'ABOUT'} />
+                <Link href="/about">
+                  <a className="nav-link port-navbar-link clickable">ABOUT</a>
+                </Link>
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Menu title={'PORTFOLIO'} />
+                <Link href="/portfolios">
+                  <a className="nav-link port-navbar-link clickable">
+                    PORTFOLIO
+                  </a>
+                </Link>
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Menu title={'BLOG'} />
+                <Link href="/blog">
+                  <a className="nav-link port-navbar-link clickable">BLOG</a>
+                </Link>
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Menu title={'CV'} />
+                <Link href="/cv">
+                  <a className="nav-link port-navbar-link clickable">CV</a>
+                </Link>
               </NavItem>
               <NavItem className="port-navbar-item">
                 <Login />
