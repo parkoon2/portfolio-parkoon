@@ -14,13 +14,7 @@ import auth0 from '../../services/auth0'
 class Login extends React.Component {
   render() {
     return (
-      <a
-        onClick={() => {
-          auth0.login()
-        }}
-        className="nav-link port-navbar-link clickable"
-        // href="/"
-      >
+      <a onClick={auth0.login} className="nav-link port-navbar-link clickable">
         LOGIN
       </a>
     )
@@ -28,7 +22,11 @@ class Login extends React.Component {
 }
 
 const Logout = () => {
-  return <a className="nav-link port-navbar-link clickable">LOGOUT</a>
+  return (
+    <a onClick={auth0.logout} className="nav-link port-navbar-link clickable">
+      LOGOUT
+    </a>
+  )
 }
 
 export default class Example extends React.Component {
@@ -87,12 +85,17 @@ export default class Example extends React.Component {
                   <a className="nav-link port-navbar-link clickable">CV</a>
                 </Link>
               </NavItem>
-              <NavItem className="port-navbar-item">
-                <Login />
-              </NavItem>
-              <NavItem className="port-navbar-item">
-                <Logout />
-              </NavItem>
+
+              {auth0.isAuthenticated() === false && (
+                <NavItem className="port-navbar-item">
+                  <Login />
+                </NavItem>
+              )}
+              {auth0.isAuthenticated() && (
+                <NavItem className="port-navbar-item">
+                  <Logout />
+                </NavItem>
+              )}
             </Nav>
           </Collapse>
         </Navbar>

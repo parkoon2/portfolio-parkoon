@@ -1,4 +1,5 @@
 import auth0 from 'auth0-js'
+import Cookies from 'js-cookie'
 
 class Auth {
   constructor() {
@@ -16,7 +17,31 @@ class Auth {
     this.auth0.authorize()
   }
 
-  setSession = () => {}
+  setSession = auth => {
+    const expiresAt = JSON.stringify(
+      auth.expiresIn * 1000 + new Date().getTime()
+    )
+
+    Cookies.set('user', auth.idTokenPayload)
+    Cookies.set('jwt', auth.idToken)
+    Cookies.set('expiresAt', expiresAt)
+  }
+
+  logout = () => {
+    Cookies.remove('user')
+    Cookies.remove('jwt')
+    Cookies.remove('expiresAt')
+
+    this.auth0.logout({
+      returnTo: '',
+      clientID: 'Ob9s1fta2rmml7vPXRNBq0UnFu5Y7Cgr'
+    })
+  }
+
+  isAuthenticated = () => {
+    const expiresAt = Cookies.getJSON('expiresAt')
+    return new Date().getTime() < expiresAt
+  }
 
   handleAuthentication = () => {
     return new Promise((resolve, reject) => {
