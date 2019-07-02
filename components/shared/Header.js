@@ -1,43 +1,4 @@
 import Link from 'next/link'
-
-// class Header extends React.Component {
-//   render() {
-//     const title = this.props.title
-//     return (
-//       <>
-//         <Link href="/">
-//           <a> Home </a>
-//         </Link>
-//         <Link href="/about">
-//           <a> About </a>
-//         </Link>
-//         <Link href="/portfolios">
-//           <a> Portfolio </a>
-//         </Link>
-//         <Link href="/blogs">
-//           <a> Blog </a>
-//         </Link>
-//         <Link href="/cv">
-//           <a> CV </a>
-//         </Link>
-
-//         <style jsx>
-//           {`
-//             a {
-//               font-size: 20px;
-//             }
-//             .customClass {
-//               color: red;
-//             }
-//           `}
-//         </style>
-//       </>
-//     )
-//   }
-// }
-
-// export default Header
-
 import React from 'react'
 import {
   Collapse,
@@ -48,6 +9,42 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap'
+
+import auth0 from '../../services/auth0'
+
+const Menu = ({ title }) => {
+  return (
+    <Link>
+      <a className="nav-link port-navbar-link clickable" href="/">
+        {title}
+      </a>
+    </Link>
+  )
+}
+
+const Login = () => {
+  return (
+    <Link>
+      <a
+        onClick={auth0.login}
+        className="nav-link port-navbar-link clickable"
+        href="/"
+      >
+        LOGIN
+      </a>
+    </Link>
+  )
+}
+
+const Logout = () => {
+  return (
+    <Link>
+      <a className="nav-link port-navbar-link clickable" href="/">
+        LOGOUT
+      </a>
+    </Link>
+  )
+}
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -79,39 +76,25 @@ export default class Example extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem className="port-navbar-item">
-                <Link>
-                  <a className="nav-link port-navbar-link" href="/">
-                    Home
-                  </a>
-                </Link>
+                <Menu title={'HOME'} />
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Link>
-                  <a className="nav-link port-navbar-link" href="/about">
-                    About
-                  </a>
-                </Link>
+                <Menu title={'ABOUT'} />
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Link>
-                  <a className="nav-link port-navbar-link" href="/portfolios">
-                    Portfolio
-                  </a>
-                </Link>
+                <Menu title={'PORTFOLIO'} />
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Link>
-                  <a className="nav-link port-navbar-link" href="/blogs">
-                    Blog
-                  </a>
-                </Link>
+                <Menu title={'BLOG'} />
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Link>
-                  <a className="nav-link port-navbar-link" href="/cv">
-                    CV
-                  </a>
-                </Link>
+                <Menu title={'CV'} />
+              </NavItem>
+              <NavItem className="port-navbar-item">
+                <Login />
+              </NavItem>
+              <NavItem className="port-navbar-item">
+                <Logout />
               </NavItem>
             </Nav>
           </Collapse>
