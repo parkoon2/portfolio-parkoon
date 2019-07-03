@@ -39,8 +39,30 @@ class Auth {
   }
 
   isAuthenticated = () => {
-    const expiresAt = Cookies.getJSON('expiresAt')
+    const expiresAt = Cookies.getJSON('expiresAt') // 서버쪽에는 쿠키가 적용되어 있지 않다.
+    // console.log(new Date().getTime()) ----------------------------- sever: number    client: number
+    // console.log(expiresAt)            ----------------------------- sever: undefined client: number
+    // console.log(new Date().getTime() < expiresAt) ----------------- sever: false     client: true
+
     return new Date().getTime() < expiresAt
+  }
+
+  clientAuth() {
+    return this.isAuthenticated()
+  }
+
+  serverAuth(req) {
+    if (req.headers.cookie) {
+      const expiresAtCookie = req.headers.cookie
+        .split(';')
+        .find(c => c.trim().startsWith('expiresAt='))
+
+      if (!expiresAtCookie) return undefined
+
+      const expiresAt = expiresAtCookie.split('=')[1]
+
+      return new Date().getTime() < expiresAt
+    }
   }
 
   handleAuthentication = () => {
