@@ -16,23 +16,21 @@ class MyApp extends App {
       ? auth0.clientAuth()
       : auth0.serverAuth(ctx.req)
 
-    console.log('========= LOG START =======')
-    console.log(isAuthenticated)
-    console.log('========= LOG END =========')
-
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
 
-    return { pageProps }
+    let auth = { isAuthenticated }
+
+    return { pageProps, auth }
   }
 
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, auth } = this.props
 
     return (
       <Container>
-        <BaseLayout className="cover">
+        <BaseLayout className="cover" auth={auth}>
           <Component {...pageProps} />
         </BaseLayout>
       </Container>

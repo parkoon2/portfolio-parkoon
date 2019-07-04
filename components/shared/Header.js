@@ -29,7 +29,7 @@ const Logout = () => {
   )
 }
 
-export default class Example extends React.Component {
+export default class Header extends React.Component {
   constructor(props) {
     super(props)
 
@@ -44,6 +44,8 @@ export default class Example extends React.Component {
     })
   }
   render() {
+    const { isAuthenticated } = this.props.auth
+    console.log('isAuthenticated', isAuthenticated)
     return (
       <div>
         <Navbar
@@ -86,14 +88,13 @@ export default class Example extends React.Component {
                 </Link>
               </NavItem>
 
-              {auth0.isAuthenticated() === false && (
-                <NavItem className="port-navbar-item">
-                  <Login />
-                </NavItem>
-              )}
-              {auth0.isAuthenticated() && (
+              {isAuthenticated ? (
                 <NavItem className="port-navbar-item">
                   <Logout />
+                </NavItem>
+              ) : (
+                <NavItem className="port-navbar-item">
+                  <Login />
                 </NavItem>
               )}
             </Nav>

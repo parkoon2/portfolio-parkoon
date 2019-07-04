@@ -43,7 +43,7 @@ class Auth {
     // console.log(new Date().getTime()) ----------------------------- sever: number    client: number
     // console.log(expiresAt)            ----------------------------- sever: undefined client: number
     // console.log(new Date().getTime() < expiresAt) ----------------- sever: false     client: true
-
+    console.log('expiresAt!!!!!!!!!!!!!!!!!!!!', expiresAt)
     return new Date().getTime() < expiresAt
   }
 
@@ -52,12 +52,13 @@ class Auth {
   }
 
   serverAuth(req) {
+    console.log('req.headers.cookie', req.headers.cookie)
     if (req.headers.cookie) {
       const expiresAtCookie = req.headers.cookie
         .split(';')
         .find(c => c.trim().startsWith('expiresAt='))
 
-      if (!expiresAtCookie) return undefined
+      if (!expiresAtCookie) return false
 
       const expiresAt = expiresAtCookie.split('=')[1]
 
