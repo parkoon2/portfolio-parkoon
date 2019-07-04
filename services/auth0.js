@@ -58,6 +58,9 @@ class Auth {
   verifyToken = token => {
     if (token) {
       const decodedToken = jwt.decode(token)
+
+      if (!decodedToken) return false
+
       const expiresAt = decodedToken.exp * 1000
       if (decodedToken && new Date().getTime() < expiresAt) {
         return decodedToken
