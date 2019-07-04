@@ -44,7 +44,7 @@ export default class Header extends React.Component {
     })
   }
   render() {
-    const { isAuthenticated } = this.props.auth
+    const { isAuthenticated, user } = this.props.auth
     console.log('isAuthenticated', isAuthenticated)
     return (
       <div>

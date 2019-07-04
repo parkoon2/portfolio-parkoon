@@ -31,7 +31,7 @@ class MyApp extends App {
     return (
       <Container>
         <BaseLayout className="cover" auth={auth}>
-          <Component {...pageProps} />
+          <Component {...pageProps} {...auth} />
         </BaseLayout>
       </Container>
     )

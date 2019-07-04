@@ -59,7 +59,11 @@ class Auth {
     if (token) {
       const decodedToken = jwt.decode(token)
       const expiresAt = decodedToken.exp * 1000
-      return decodedToken && new Date().getTime() < expiresAt
+      if (decodedToken && new Date().getTime() < expiresAt) {
+        return decodedToken
+      } else {
+        return false
+      }
     }
     return false
   }
