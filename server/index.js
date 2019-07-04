@@ -1,9 +1,20 @@
 const express = require('express')
 const next = require('next')
-const routes = require('./routes')
+const routes = require('../routes')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = routes.getRequestHandler(app)
+
+const secretData = [
+  {
+    title: 'secret data 1',
+    description: 'Buy something'
+  },
+  {
+    title: 'secret data 2',
+    description: 'Eat something'
+  }
+]
 
 app
   .prepare()
@@ -21,6 +32,10 @@ app
     //   console.log('------- Serving all of the request -------')
     //   return handle(req, res)
     // })
+
+    server.get('/api/v1/secret', (req, res) => {
+      return res.json(secretData)
+    })
 
     server.use(handle).listen(3000, err => {
       if (err) throw err

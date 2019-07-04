@@ -4,10 +4,6 @@ import BasePage from '../components/BasePage'
 import { withRouter } from 'next/router'
 import axios from 'axios'
 class Portfolio extends React.Component {
-  componentDidMount() {
-    console.log('result...', this.props.post)
-  }
-
   render() {
     return (
       <BasePage>

@@ -7,7 +7,6 @@ import { Link } from '../routes'
 
 const Portfolios = props => {
   const { posts } = props
-  console.log(posts)
   return (
     <BasePage>
       <h1>Portfolio Page</h1>

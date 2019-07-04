@@ -72,7 +72,6 @@ class Auth {
   }
 
   serverAuth(req) {
-    console.log('req.headers.cookie', req.headers.cookie)
     if (req.headers.cookie) {
       const jwtCookie = req.headers.cookie
         .split(';')
