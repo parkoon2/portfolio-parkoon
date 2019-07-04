@@ -1,7 +1,7 @@
 import BaseLayout from '../components/layouts/BaseLayout'
 import BasePage from '../components/BasePage'
 
-const Cv = () => {
+const CV = () => {
   return (
     <BasePage>
       <h1>Cv Page</h1>
@@ -9,4 +9,4 @@ const Cv = () => {
   )
 }
 
-export default Cv
+export default CV
