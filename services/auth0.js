@@ -1,6 +1,6 @@
 import auth0 from 'auth0-js'
 import Cookies from 'js-cookie'
-
+import jwt from 'jsonwebtoken'
 class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
@@ -48,22 +48,42 @@ class Auth {
   }
 
   clientAuth() {
-    return this.isAuthenticated()
+    // return this.isAuthenticated()
+    const token = Cookies.getJSON('jwt')
+    const verifiedToken = this.verifyToken(token)
+
+    return verifiedToken
+  }
+
+  verifyToken = token => {
+    if (token) {
+      const decodedToken = jwt.decode(token)
+      const expiresAt = decodedToken.exp * 1000
+      return decodedToken && new Date().getTime() < expiresAt
+    }
+    return false
   }
 
   serverAuth(req) {
     console.log('req.headers.cookie', req.headers.cookie)
     if (req.headers.cookie) {
-      const expiresAtCookie = req.headers.cookie
+      const jwtCookie = req.headers.cookie
         .split(';')
-        .find(c => c.trim().startsWith('expiresAt='))
+        .find(c => c.trim().startsWith('jwt'))
+      // const expiresAtCookie = req.headers.cookie
+      //   .split(';')
+      //   .find(c => c.trim().startsWith('expiresAt='))
 
-      if (!expiresAtCookie) return false
+      if (!jwtCookie) return false
 
-      const expiresAt = expiresAtCookie.split('=')[1]
+      const token = jwtCookie.split('=')[1]
+      const verifiedToken = this.verifyToken(token)
 
-      return new Date().getTime() < expiresAt
+      // return new Date().getTime() < expiresAt ? decodedToken : false
+      return verifiedToken
     }
+
+    return false
   }
 
   handleAuthentication = () => {
