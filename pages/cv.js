@@ -1,11 +1,13 @@
 import BaseLayout from '../components/layouts/BaseLayout'
 import BasePage from '../components/BasePage'
 
-const CV = () => {
+import withAuth from '../components/hoc/withAuth'
+
+const CV = props => {
   return (
-    <BasePage>
-      <h1>Cv Page</h1>
-    </BasePage>
+    <BaseLayout isAuthenticated={props.isAuthenticated}>
+      <BasePage className="portfolio-create-page" title="Im about cv" />
+    </BaseLayout>
   )
 }
 

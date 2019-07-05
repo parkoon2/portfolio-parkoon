@@ -1,5 +1,6 @@
 import React from 'react'
 import BasePage from '../BasePage'
+import BaseLayout from '../layouts/BaseLayout'
 
 const namespace = 'http://localhost:3000/'
 
@@ -18,19 +19,25 @@ export default (role = false) => Component =>
 
       if (!isAuthenticated) {
         return (
-          <BasePage>
-            <h1>You are not authenticated. Please login to access this page</h1>
-          </BasePage>
+          <BaseLayout isAuthenticated={isAuthenticated}>
+            <BasePage>
+              <h1>
+                You are not authenticated. Please login to access this page
+              </h1>
+            </BasePage>
+          </BaseLayout>
         )
       }
       if (!isOwner) {
         return (
-          <BasePage>
-            <h1>
-              You are authenticated. But you cannot access this page because you
-              are not owner
-            </h1>
-          </BasePage>
+          <BaseLayout isAuthenticated={isAuthenticated}>
+            <BasePage>
+              <h1>
+                You are authenticated. But you cannot access this page because
+                you are not owner
+              </h1>
+            </BasePage>
+          </BaseLayout>
         )
       }
 
