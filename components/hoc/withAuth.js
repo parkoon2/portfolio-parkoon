@@ -1,7 +1,10 @@
 import React from 'react'
 import BasePage from '../BasePage'
-export default function(Component) {
-  return class withAuth extends React.Component {
+
+const namespace = 'http://localhost:3000/'
+
+export default (role = false) => Component =>
+  class withAuth extends React.Component {
     static getInitialProps = async args => {
       const pageProps =
         (await Component.getInitialProps) && Component.getInitialProps(args)
@@ -9,20 +12,36 @@ export default function(Component) {
     }
 
     renderProtectedPage = () => {
-      const { isAuthenticated } = this.props
-      if (isAuthenticated) {
-        return <Component {...this.props} />
-      } else {
+      const { isAuthenticated, user } = this.props
+
+      const isOwner = role === (user && user[`${namespace}role`])
+
+      if (!isAuthenticated) {
         return (
           <BasePage>
             <h1>You are not authenticated. Please login to access this page</h1>
           </BasePage>
         )
       }
+      if (!isOwner) {
+        return (
+          <BasePage>
+            <h1>
+              You are authenticated. But you cannot access this page because you
+              are not owner
+            </h1>
+          </BasePage>
+        )
+      }
+
+      return <Component {...this.props} />
     }
 
     render() {
+      console.log('========= LOG START =======')
+      console.log(this.props)
+      console.log('========= LOG END =========')
+
       return this.renderProtectedPage()
     }
   }
-}
