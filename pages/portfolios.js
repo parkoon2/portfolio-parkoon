@@ -6,23 +6,28 @@ import axios from 'axios'
 import { Link } from '../routes'
 
 const Portfolios = props => {
-  const { posts } = props
+  const { posts, isAuthenticated } = props
+
   return (
-    <BasePage>
-      <h1>Portfolio Page</h1>
-      <ul>
-        {posts.map(post => (
-          <Link key={post.id} route={`/portfolio/${post.id}`}>
-            {/* <Link
+    <BaseLayout isAuthenticated={isAuthenticated}>
+      <BasePage title="Portfolios">
+        <ul>
+          {posts.map(post => (
+            <Link key={post.id} route={`/portfolio/${post.id}`}>
+              {/* <Link
             key={post.id}
             as={`/portfolio/${post.id}`}
             href={`/portfolio?id=${post.id}`}
           > */}
-            <a style={{ fontSize: '20px', display: 'flex' }}> {post.title} </a>
-          </Link>
-        ))}
-      </ul>
-    </BasePage>
+              <a style={{ fontSize: '20px', display: 'flex' }}>
+                {' '}
+                {post.title}{' '}
+              </a>
+            </Link>
+          ))}
+        </ul>
+      </BasePage>
+    </BaseLayout>
   )
 }
 

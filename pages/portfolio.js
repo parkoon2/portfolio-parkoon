@@ -5,11 +5,15 @@ import { withRouter } from 'next/router'
 import axios from 'axios'
 class Portfolio extends React.Component {
   render() {
+    const { isAuthenticated } = this.props
+
     return (
-      <BasePage>
-        <h1>Portfolio Page</h1>
-        <h2>{this.props.post.title}</h2>
-      </BasePage>
+      <BaseLayout isAuthenticated={isAuthenticated}>
+        <BasePage>
+          <h1>Portfolio Page</h1>
+          <h2>{this.props.post.title}</h2>
+        </BasePage>
+      </BaseLayout>
     )
   }
 }

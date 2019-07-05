@@ -1,13 +1,16 @@
 import BaseLayout from '../components/layouts/BaseLayout'
 import BasePage from '../components/BasePage'
 
-const About = props => {
+const Blogs = props => {
   const { isAuthenticated } = props
+
   return (
     <BaseLayout isAuthenticated={isAuthenticated}>
-      <BasePage className="about-page" title={'About Page'} />
+      <BasePage>
+        <h1>Blog Page</h1>
+      </BasePage>
     </BaseLayout>
   )
 }
 
-export default About
+export default Blogs

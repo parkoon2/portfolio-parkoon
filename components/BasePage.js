@@ -2,11 +2,18 @@ import { Container } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 const BasePage = props => {
-  const { className } = props
+  const { className, title } = props
 
   return (
     <div className={`base-page ${className}`}>
-      <Container>{props.children}</Container>
+      <Container>
+        {title && (
+          <div className="page-header">
+            <h1 className="page-header-title">{title}</h1>
+          </div>
+        )}
+        {props.children}
+      </Container>
     </div>
   )
 }
