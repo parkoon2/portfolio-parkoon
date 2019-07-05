@@ -2,8 +2,9 @@ import React from 'react'
 import Header from '../shared/Header'
 
 const BaseLayout = props => {
-  const { isAuthenticated, className, children } = props
+  const { isAuthenticated, children } = props
   const headerType = props.headerType || 'default'
+  const className = props.className || ''
 
   return (
     <>
