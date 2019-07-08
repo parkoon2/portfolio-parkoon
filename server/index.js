@@ -6,6 +6,9 @@ const app = next({ dev })
 const handle = routes.getRequestHandler(app)
 const mongoose = require('mongoose')
 const config = require('./config')
+const bodyParser = require('body-parser')
+
+const Book = require('./models/book')
 
 const secretData = [
   {
@@ -29,18 +32,19 @@ app
   .prepare()
   .then(() => {
     const server = express()
-    console.log('prepared')
-    // server.get('/portfolio/:id', (req, res) => {
-    //   console.log('------- Serving /portfolio/:id request -------')
-    //   const actualPage = '/portfolio'
-    //   const queryParams = { id: req.params.id }
-    //   app.render(req, res, actualPage, queryParams)
-    // })
+    server.use(express.json())
 
-    // server.get('*', (req, res) => {
-    //   console.log('------- Serving all of the request -------')
-    //   return handle(req, res)
-    // })
+    server.post('/api/v1/books', (req, res) => {
+      const bookData = req.body
+      console.log('z', bookData)
+      const book = new Book(bookData)
+
+      book.save((err, result) => {
+        if (err) return res.status(422).json(err)
+
+        return res.json(result)
+      })
+    })
 
     server.get('/api/v1/secret', (req, res) => {
       return res.json(secretData)
