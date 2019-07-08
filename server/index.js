@@ -4,6 +4,7 @@ const routes = require('../routes')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = routes.getRequestHandler(app)
+const mongoose = require('mongoose')
 
 const secretData = [
   {
@@ -15,6 +16,16 @@ const secretData = [
     description: 'Eat something'
   }
 ]
+
+mongoose
+  .connect(
+    'mongodb+srv://test:test@parkoon-ttre7.mongodb.net/test?retryWrites=true&w=majority',
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log('Database connected')
+  })
+  .catch(err => console.error(err))
 
 app
   .prepare()
