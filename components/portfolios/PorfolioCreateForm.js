@@ -1,14 +1,28 @@
 // Render Prop
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { FormGroup, Label, Input, FormText, Button } from 'reactstrap'
+import PortDatePicker from '../forms/PortDatePicker'
+import moment from 'moment'
 
-const validate = val => {
+const validate = values => {
   let errors = {}
-  // if (!values.email) {
-  //   errors.email = 'Required'
-  // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-  //   errors.email = 'Invalid email address'
-  // }
+  Object.entries(values).forEach(([key, value]) => {
+    if (key === 'startDate' || key === 'endDate') return
+    if (!value) {
+      errors[key] = `${key} is required`
+    }
+  })
+
+  const startDate = moment(values.startDate)
+  const endDate = moment(values.endDate)
+
+  if (startDate && endDate && endDate.isBefore(startDate)) {
+    errors.endDate = 'End Date cannog be before start date'
+  }
+
+  console.log('endDate.isBefore(startDate)', endDate.isBefore(startDate))
+
   return errors
 }
 
@@ -22,67 +36,73 @@ const InitialValue = {
   endDate: ''
 }
 
-const PortfolioCreateForm = () => (
+const PortfolioCreateForm = ({ onSubmit }) => (
   <div>
     <Formik
       initialValues={InitialValue}
       validate={validate}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          setSubmitting(false)
-        }, 400)
+      onSubmit={onSubmit}
+      render={props => {
+        return (
+          <Form>
+            <FormGroup>
+              <Label>Title</Label>
+              <Field className="form-control" type="text" name="title" />
+              <ErrorMessage name="title" component="div" />
+            </FormGroup>
+            <FormGroup>
+              <Label>Company</Label>
+              <Field className="form-control" type="text" name="company" />
+              <ErrorMessage name="company" component="div" />
+            </FormGroup>
+
+            <FormGroup>
+              <Label>Location</Label>
+              <Field className="form-control" type="text" name="location" />
+              <ErrorMessage name="location" component="div" />
+            </FormGroup>
+
+            <FormGroup>
+              <Label>Position</Label>
+              <Field className="form-control" type="text" name="position" />
+              <ErrorMessage name="position" component="div" />
+            </FormGroup>
+
+            <FormGroup>
+              <Label>Description</Label>
+              <Field
+                className="form-control"
+                type="textarea"
+                name="description"
+              />
+              <ErrorMessage name="description" component="div" />
+            </FormGroup>
+            <FormGroup>
+              <Label>Start Date</Label>
+              {/* <Field type="text" name="startDate" component="div" /> */}
+              <PortDatePicker field="startDate" {...props} />
+              <ErrorMessage name="startDate" component="div" />
+            </FormGroup>
+
+            <FormGroup>
+              <Label>End Date</Label>
+              <PortDatePicker field="endDate" {...props} canBeDisabled={true} />
+              <ErrorMessage name="endDate" component="div" />
+              {/* <Field type="text" name="endDate" /> */}
+            </FormGroup>
+
+            <Button
+              color="success"
+              size="lg"
+              type="submit"
+              disabled={props.isSubmitting}
+            >
+              Create
+            </Button>
+          </Form>
+        )
       }}
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          <div>
-            <label>Title</label>
-            <Field type="text" name="title" />
-            <ErrorMessage name="title" component="div" />
-          </div>
-          <div>
-            <label>Company</label>
-            <Field type="text" name="company" />
-            <ErrorMessage name="company" component="div" />
-          </div>
-
-          <div>
-            <label>Location</label>
-            <Field type="text" name="location" />
-            <ErrorMessage name="location" component="div" />
-          </div>
-
-          <div>
-            <label>Position</label>
-            <Field type="text" name="position" />
-            <ErrorMessage name="position" component="div" />
-          </div>
-
-          <div>
-            <label>Description</label>
-            <Field type="textarea" name="description" />
-            <ErrorMessage name="description" component="div" />
-          </div>
-
-          <div>
-            <label>Start Date</label>
-            <Field type="text" name="startDate" component="textarea" />
-            <ErrorMessage name="startDate" component="div" />
-          </div>
-
-          <div>
-            <label>End Date</label>
-            <Field type="text" name="endDate" />
-            <ErrorMessage name="endDate" component="div" />
-          </div>
-
-          <button type="submit" disabled={isSubmitting}>
-            Create
-          </button>
-        </Form>
-      )}
-    </Formik>
+    />
   </div>
 )
 
@@ -107,7 +127,7 @@ export default PortfolioCreateForm
 //   render() {
 //     return (
 //       <form onSubmit={this.handleSubmit}>
-//         <label>
+//         <Label>
 //           title:
 //           <input
 //             name="title"
@@ -115,8 +135,8 @@ export default PortfolioCreateForm
 //             value={this.state.title}
 //             onChange={this.handleChange}
 //           />
-//         </label>
-//         <label>
+//         </Label>
+//         <Label>
 //           description:
 //           <textarea
 //             name="description"
@@ -124,8 +144,8 @@ export default PortfolioCreateForm
 //             value={this.state.description}
 //             onChange={this.handleChange}
 //           />
-//         </label>
-//         <label>
+//         </Label>
+//         <Label>
 //           language:
 //           <select
 //             name="language"
@@ -138,7 +158,7 @@ export default PortfolioCreateForm
 //             <option value="mongodb">MongoDB</option>
 //             <option value="webrtc">WebRTC</option>
 //           </select>
-//         </label>
+//         </Label>
 //         <input type="submit" value="Submit" />
 //       </form>
 //     )
