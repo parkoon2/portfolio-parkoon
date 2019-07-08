@@ -18,9 +18,6 @@ class Secret extends React.Component {
 
   async componentDidMount() {
     const res = await axios.get('/api/v1/secret')
-    console.log('========= LOG START =======')
-    console.log(res.data)
-    console.log('========= LOG END =========')
     const secretData = res.data
 
     this.setState({

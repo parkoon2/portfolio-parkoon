@@ -45,10 +45,6 @@ export default (role = false) => Component =>
     }
 
     render() {
-      console.log('========= LOG START =======')
-      console.log(this.props)
-      console.log('========= LOG END =========')
-
       return this.renderProtectedPage()
     }
   }

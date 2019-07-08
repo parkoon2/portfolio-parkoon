@@ -36,10 +36,6 @@ export default class PortDatePicker extends React.Component {
       isHidden: !this.state.isHidden
     })
 
-    console.log('========= LOG START =======')
-    console.log(date)
-    console.log('========= LOG END =========')
-
     this.setFieldValueAndTouched(date, true)
   }
 
