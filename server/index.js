@@ -6,7 +6,7 @@ const app = next({ dev })
 const handle = routes.getRequestHandler(app)
 const mongoose = require('mongoose')
 const config = require('./config')
-const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
 const Book = require('./models/book')
 
@@ -37,6 +37,7 @@ app
   .then(() => {
     const server = express()
     server.use(express.json())
+    // server.use(morgan('combined'))
 
     server.use('/api/v1/books', bookRouter)
     server.use('/api/v1/portfolios', portfolioRouter)

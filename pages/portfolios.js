@@ -52,8 +52,7 @@ const Portfolios = props => {
 Portfolios.getInitialProps = async () => {
   let portfolios = []
   try {
-    const result = await getPortfolios()
-    portfolios = result.data
+    portfolios = await getPortfolios()
   } catch (err) {
     console.error(err)
   }
