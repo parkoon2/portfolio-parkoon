@@ -10,6 +10,10 @@ const bodyParser = require('body-parser')
 
 const Book = require('./models/book')
 
+// Router
+const bookRouter = require('./routes/book')
+const portfolioRouter = require('./routes/portfolio')
+
 const secretData = [
   {
     title: 'secret data 1',
@@ -34,17 +38,8 @@ app
     const server = express()
     server.use(express.json())
 
-    server.post('/api/v1/books', (req, res) => {
-      const bookData = req.body
-      console.log('z', bookData)
-      const book = new Book(bookData)
-
-      book.save((err, result) => {
-        if (err) return res.status(422).json(err)
-
-        return res.json(result)
-      })
-    })
+    server.use('/api/v1/books', bookRouter)
+    server.use('/api/v1/portfolios', portfolioRouter)
 
     server.get('/api/v1/secret', (req, res) => {
       return res.json(secretData)
