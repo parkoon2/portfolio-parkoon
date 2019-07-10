@@ -8,7 +8,7 @@ export default (role = false) => Component =>
   class withAuth extends React.Component {
     static getInitialProps = async args => {
       const pageProps =
-        (await Component.getInitialProps) && Component.getInitialProps(args)
+        Component.getInitialProps && (await Component.getInitialProps(args))
       return { ...pageProps }
     }
 

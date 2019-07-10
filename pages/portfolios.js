@@ -19,7 +19,7 @@ const renderPortfolios = portfolios => {
   return portfolios.map((portfolio, index) => (
     <Col md="4" key={index}>
       <Card className="portfolio-card">
-        <CardHeader className="portfolio-card-header">
+        <CardHeader className="portfolio-card-header" data-id={portfolio._id}>
           {portfolio.position}
         </CardHeader>
         <CardBody>

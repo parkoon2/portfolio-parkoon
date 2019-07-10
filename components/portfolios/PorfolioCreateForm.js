@@ -21,25 +21,13 @@ const validate = values => {
     errors.endDate = 'End Date cannog be before start date'
   }
 
-  console.log('endDate.isBefore(startDate)', endDate.isBefore(startDate))
-
   return errors
 }
 
-const InitialValue = {
-  title: '',
-  company: '',
-  location: '',
-  position: '',
-  description: '',
-  startDate: '',
-  endDate: ''
-}
-
-const PortfolioCreateForm = ({ onSubmit }) => (
+const PortfolioCreateForm = ({ onSubmit, initialValue }) => (
   <div>
     <Formik
-      initialValues={InitialValue}
+      initialValues={initialValue}
       validate={validate}
       onSubmit={onSubmit}
       render={props => {

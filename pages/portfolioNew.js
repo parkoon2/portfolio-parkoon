@@ -8,16 +8,26 @@ import PortfolioCrateForm from '../components/portfolios/PorfolioCreateForm'
 
 import { createPortfolio } from '../actions/portfolio'
 
+import { Router } from '../routes'
+
+const initialValue = {
+  title: '',
+  company: '',
+  location: '',
+  position: '',
+  description: '',
+  startDate: '',
+  endDate: ''
+}
+
 class PortfolioNew extends React.Component {
   savePortfolio = async data => {
     try {
       // TODO 인증관련 기능 정리하고 처리
       data.userId = 'parkoon'
-
       const createdPortfolio = await createPortfolio(data)
-      console.log('created', createdPortfolio)
+      Router.pushRoute('/portfolios')
     } catch (err) {
-      debugger
       console.error(err)
     }
   }
@@ -27,7 +37,10 @@ class PortfolioNew extends React.Component {
         <BasePage className="about-page" title="Create New Portfolio">
           <Row>
             <Col md="6">
-              <PortfolioCrateForm onSubmit={this.savePortfolio} />
+              <PortfolioCrateForm
+                initialValue={initialValue}
+                onSubmit={this.savePortfolio}
+              />
             </Col>
           </Row>
         </BasePage>

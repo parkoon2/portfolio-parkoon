@@ -17,7 +17,12 @@ class MyApp extends App {
       : auth0.serverAuth(ctx.req)
 
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+      try {
+        pageProps = await Component.getInitialProps(ctx)
+        console.log('pageProps', pageProps)
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     let auth = { user, isAuthenticated: !!user }
