@@ -7,13 +7,15 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
-  CardText
+  CardText,
+  Button
 } from 'reactstrap'
 
 import axios from 'axios'
 // import Link from 'next/link'
 import { Link } from '../routes'
 import { getPortfolios } from '../actions/portfolio'
+import { Router } from '../routes'
 
 const renderPortfolios = portfolios => {
   return portfolios.map((portfolio, index) => (
@@ -30,11 +32,25 @@ const renderPortfolios = portfolios => {
           <CardText className="portfolio-card-text">
             {portfolio.discription}
           </CardText>
-          <div className="readMore"> </div>
+          <div className="readMore">
+            <Button
+              onClick={() => {
+                Router.pushRoute(`/portfolios/${portfolio._id}/edit`)
+              }}
+              color="warning"
+            >
+              Edit
+            </Button>{' '}
+            <Button color="danger">Delete</Button>
+          </div>
         </CardBody>
       </Card>
     </Col>
   ))
+}
+
+const routeToCreatePortPage = () => {
+  Router.pushRoute('/portfolioNew')
 }
 
 const Portfolios = props => {
@@ -43,6 +59,13 @@ const Portfolios = props => {
   return (
     <BaseLayout isAuthenticated={isAuthenticated}>
       <BasePage className="portfolio-page" title="Portfolios">
+        <Button
+          onClick={routeToCreatePortPage}
+          color="success"
+          className="create-port-btn"
+        >
+          Create Portfolio
+        </Button>
         <Row>{renderPortfolios(portfolios)}</Row>
       </BasePage>
     </BaseLayout>
