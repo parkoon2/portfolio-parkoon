@@ -1,21 +1,13 @@
 import BaseLayout from '../components/layouts/BaseLayout'
 import BasePage from '../components/BasePage'
-import {
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  CardText,
-  Button
-} from 'reactstrap'
+import { Row, Col, Button } from 'reactstrap'
 
 import axios from 'axios'
 // import Link from 'next/link'
 import { Link } from '../routes'
 import { getPortfolios, deletePortfolio } from '../actions/portfolio'
 import { Router } from '../routes'
+import PortfolioCard from '../components/portfolios/PortfolioCard'
 
 class Portfolios extends React.Component {
   displayConfirmMessage = portfolio => {
@@ -41,42 +33,32 @@ class Portfolios extends React.Component {
 
     return portfolios.map((portfolio, index) => (
       <Col md="4" key={index}>
-        <Card className="portfolio-card">
-          <CardHeader className="portfolio-card-header" data-id={portfolio._id}>
-            {portfolio.position}
-          </CardHeader>
-          <CardBody>
-            <p className="portfolio-card-city">{portfolio.location}</p>
-            <CardTitle className="portfolio-card-title">
-              {portfolio.title}
-            </CardTitle>
-            <CardText className="portfolio-card-text">
-              {portfolio.discription}
-            </CardText>
-            <div className="readMore">
-              {isAuthenticated && isSiteOwner && (
-                <>
-                  <Button
-                    onClick={() => {
-                      Router.pushRoute(`/portfolios/${portfolio._id}/edit`)
-                    }}
-                    color="warning"
-                  >
-                    Edit
-                  </Button>{' '}
-                  <Button
-                    onClick={() => {
-                      this.displayConfirmMessage(portfolio)
-                    }}
-                    color="danger"
-                  >
-                    Delete
-                  </Button>
-                </>
-              )}
-            </div>
-          </CardBody>
-        </Card>
+        <PortfolioCard
+          portfolio={portfolio}
+          isAuthenticated={isAuthenticated}
+          isSiteOwner={isSiteOwner}
+        >
+          {isAuthenticated && isSiteOwner && (
+            <>
+              <Button
+                onClick={() => {
+                  Router.pushRoute(`/portfolios/${portfolio._id}/edit`)
+                }}
+                color="warning"
+              >
+                Edit
+              </Button>{' '}
+              <Button
+                onClick={() => {
+                  this.displayConfirmMessage(portfolio)
+                }}
+                color="danger"
+              >
+                Delete
+              </Button>
+            </>
+          )}
+        </PortfolioCard>
       </Col>
     ))
   }
