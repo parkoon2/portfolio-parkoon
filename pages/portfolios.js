@@ -14,10 +14,28 @@ import {
 import axios from 'axios'
 // import Link from 'next/link'
 import { Link } from '../routes'
-import { getPortfolios } from '../actions/portfolio'
+import { getPortfolios, deletePortfolio } from '../actions/portfolio'
 import { Router } from '../routes'
 
 class Portfolios extends React.Component {
+  displayConfirmMessage = portfolio => {
+    const isConfirm = confirm('Are you sure ?')
+
+    if (isConfirm) {
+      this.removePortfolio(portfolio)
+    }
+  }
+
+  removePortfolio = async portfolio => {
+    try {
+      const result = await deletePortfolio(portfolio)
+      console.log(result)
+      Router.pushRoute('/portfolios')
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   renderPortfolios = portfolios => {
     const { isAuthenticated, isSiteOwner } = this.props
 
@@ -46,7 +64,14 @@ class Portfolios extends React.Component {
                   >
                     Edit
                   </Button>{' '}
-                  <Button color="danger">Delete</Button>
+                  <Button
+                    onClick={() => {
+                      this.displayConfirmMessage(portfolio)
+                    }}
+                    color="danger"
+                  >
+                    Delete
+                  </Button>
                 </>
               )}
             </div>

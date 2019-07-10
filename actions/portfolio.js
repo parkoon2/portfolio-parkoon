@@ -41,3 +41,10 @@ export const updatePortfolio = async portfolio => {
     .then(res => res.data)
     .catch(err => rejectPromise(err))
 }
+
+export const deletePortfolio = async portfolio => {
+  return await axiosInstance
+    .delete(`/portfolios/${portfolio._id}`)
+    .then(res => res.data)
+    .catch(err => rejectPromise(err))
+}
