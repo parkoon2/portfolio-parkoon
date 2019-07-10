@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/main.scss'
 import BaseLayout from '../components/layouts/BaseLayout'
 
+const namespace = 'http://localhost:3000'
+
 // 서버에서도 가장 먼저 실행되는 곳! 클라이언트에서도 가장 먼저 실행되는 곳!
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -25,7 +27,8 @@ class MyApp extends App {
       }
     }
 
-    let auth = { user, isAuthenticated: !!user }
+    const isSiteOwner = user[`${namespace}/role`] === 'siteOwner'
+    let auth = { user, isAuthenticated: !!user, isSiteOwner }
 
     return { pageProps, auth }
   }
