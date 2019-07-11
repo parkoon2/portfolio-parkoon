@@ -6,8 +6,13 @@ import moment from 'moment'
 
 class Blogs extends React.Component {
   render() {
+    const { isAuthenticated } = this.props
     return (
-      <BaseLayout headerType={'landing'} className="blog-listing-page">
+      <BaseLayout
+        isAuthenticated={isAuthenticated}
+        headerType={'landing'}
+        className="blog-listing-page"
+      >
         <div
           className="masthead"
           style={{ backgroundImage: "url('/static/images/home-bg.jpg')" }}
