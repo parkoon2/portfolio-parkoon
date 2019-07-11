@@ -1,6 +1,8 @@
 import React from 'react'
 import Header from '../shared/Header'
 
+import Head from 'next/head'
+
 const BaseLayout = props => {
   const { isAuthenticated, children } = props
   const headerType = props.headerType || 'default'
@@ -8,6 +10,9 @@ const BaseLayout = props => {
 
   return (
     <>
+      <Head>
+        <script src="https://kit.fontawesome.com/788c552a2d.js" />
+      </Head>
       <div className="layout-container">
         <Header
           className={`port-nav-${headerType}`}
