@@ -12,6 +12,10 @@ const BaseLayout = props => {
     <>
       <Head>
         <script src="https://kit.fontawesome.com/788c552a2d.js" />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
       </Head>
       <div className="layout-container">
         <Header
