@@ -26,6 +26,10 @@ function CodeNode(props) {
   )
 }
 
+function BoldMark(props) {
+  return <strong>{props.children}</strong>
+}
+
 export default class SlateEditor extends React.Component {
   state = {
     value: initialValue
@@ -42,24 +46,43 @@ export default class SlateEditor extends React.Component {
     }
   }
 
+  renderMark = (props, editor, next) => {
+    switch (props.mark.type) {
+      case 'bold':
+        return <BoldMark {...props} />
+      default:
+        return next()
+    }
+  }
+
   // On change, update the app's React state with the new editor value.
   onChange = ({ value }) => {
     this.setState({ value })
   }
 
   onKeyDown = (event, editor, next) => {
-    // Return with no changes if it's not the "`" key with ctrl pressed.
-    if (event.key != '`' || !event.ctrlKey) return next()
+    if (!event.ctrlKey) return next()
 
-    // Prevent the "`" from being inserted by default.
-    event.preventDefault()
-
-    // Determine whether any of the currently selected blocks are code blocks.
-    console.log('editor.value.blocks', editor.value.blocks)
-    const isCode = editor.value.blocks.some(block => block.type == 'code')
-
-    // Toggle the block type depending on `isCode`.
-    editor.setBlocks(isCode ? 'paragraph' : 'code')
+    // Decide what to do based on the key code...
+    switch (event.key) {
+      // When "B" is pressed, add a "bold" mark to the text.
+      case 'b': {
+        event.preventDefault()
+        editor.toggleMark('bold')
+        break
+      }
+      // When "`" is pressed, keep our existing code block logic.
+      case '`': {
+        const isCode = editor.value.blocks.some(block => block.type == 'code')
+        event.preventDefault()
+        editor.setBlocks(isCode ? 'paragraph' : 'code')
+        break
+      }
+      // Otherwise, let other plugins handle it.
+      default: {
+        return next()
+      }
+    }
   }
 
   // Render the editor.
@@ -70,6 +93,7 @@ export default class SlateEditor extends React.Component {
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
         renderBlock={this.renderBlock}
+        renderMark={this.renderMark}
       />
     )
   }
