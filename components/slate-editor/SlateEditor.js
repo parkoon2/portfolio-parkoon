@@ -2,7 +2,11 @@ import { Editor } from 'slate-react'
 import HoverMenu from './HoverMenu'
 import { initialValue } from './initialValue'
 import { Button, Icon, Toolbar } from './components'
+import ControlMenu from './ControlMenu'
 
+import rules from './rules'
+import Html from 'slate-html-serializer'
+const html = new Html({ rules })
 /**
  * Define the default node type.
  *
@@ -269,12 +273,40 @@ export default class SlateEditor extends React.Component {
     this.editor = editor
   }
 
+  getHeadingValue = () => {
+    const { value } = this.state
+
+    const firstBlock = value.document.getBlocks().get(0)
+    const secondBlock = value.document.getBlocks().get(1)
+
+    const title = (firstBlock && firstBlock.text) || 'No Title'
+    const subtitle = (secondBlock && secondBlock.text) || 'No Sub Title'
+
+    return {
+      title,
+      subtitle
+    }
+  }
+
+  save = () => {
+    const { value } = this.state
+    const { save } = this.props
+
+    const headingValue = this.getHeadingValue()
+    const text = html.serialize(value)
+
+    save(text, headingValue)
+  }
+
   // Render the editor.
   render() {
     const { isLoaded } = this.state
+    const { isSaving } = this.props
     return (
       isLoaded && (
         <>
+          <ControlMenu isSaving={isSaving} save={this.save} />
+
           <Toolbar>
             {this.renderMarkButton('bold', 'format_bold')}
             {this.renderMarkButton('italic', 'format_italic')}
