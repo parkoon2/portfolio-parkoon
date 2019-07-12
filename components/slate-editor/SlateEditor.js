@@ -1,4 +1,5 @@
 import { Editor } from 'slate-react'
+import { Value } from 'slate'
 import HoverMenu from './HoverMenu'
 import { initialValue } from './initialValue'
 import { Button, Icon, Toolbar } from './components'
@@ -28,7 +29,7 @@ function BoldMark(props) {
 
 export default class SlateEditor extends React.Component {
   state = {
-    value: initialValue,
+    value: Value.create(),
     isLoaded: false
   }
   menuRef = React.createRef()
@@ -110,10 +111,17 @@ export default class SlateEditor extends React.Component {
   }
 
   componentDidMount = () => {
-    this.setState({
-      isLoaded: true
-    })
+    const valueFromProps = this.props.initialValue
+
+    const value = valueFromProps
+      ? Value.fromJSON(html.deserialize(valueFromProps))
+      : Value.fromJSON(initialValue)
+
     this.updateMenu()
+    this.setState({
+      isLoaded: true,
+      value
+    })
   }
 
   componentDidUpdate = () => {

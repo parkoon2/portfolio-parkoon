@@ -9,30 +9,26 @@ class BlogEditor extends React.Component {
     isSaving: false
   }
 
-  static async getInitilProps({ query }) {
+  static async getInitialProps({ query }) {
     const blogId = query.id
-    console.log('hello blog')
+    let blog = {}
     try {
-      const blog = await getBlogById(blogId)
-      return { blog }
+      blog = await getBlogById(blogId)
     } catch (err) {
       console.error(err)
-      return { err }
     }
+    return { blog }
   }
 
   render() {
     const { isAuthenticated } = this.props
     const { isSaving } = this.state
 
-    console.log('========= LOG START =======')
-    console.log(this.props.blog)
-    console.log('========= LOG END =========')
-
     return (
       <BaseLayout isAuthenticated={isAuthenticated}>
         <BasePage className="blog-editor-page">
           <SlateEditor
+            initialValue={this.props.blog}
             isSaving={isSaving}
             save={() => {
               console.log('here should be update!')
