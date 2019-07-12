@@ -13,6 +13,7 @@ const Book = require('./models/book')
 // Router
 const bookRouter = require('./routes/book')
 const portfolioRouter = require('./routes/portfolio')
+const blogRouter = require('./routes/blog')
 
 const secretData = [
   {
@@ -41,6 +42,7 @@ app
 
     server.use('/api/v1/books', bookRouter)
     server.use('/api/v1/portfolios', portfolioRouter)
+    server.use('/api/v1/blogs', blogRouter)
 
     server.get('/api/v1/secret', (req, res) => {
       return res.json(secretData)
