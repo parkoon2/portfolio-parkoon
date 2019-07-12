@@ -23,3 +23,10 @@ export const saveBlog = async blog => {
     .then(res => res.data)
     .catch(err => rejectPromise(err))
 }
+
+export const getBlogById = async id => {
+  return axiosInstance
+    .get(`/blogs/${id}`)
+    .then(res => res.data)
+    .catch(err => rejectPromise(err))
+}

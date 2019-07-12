@@ -14,6 +14,8 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
+    console.log('call every time..?', process.browser)
+
     const user = process.browser
       ? auth0.clientAuth()
       : auth0.serverAuth(ctx.req)
@@ -33,9 +35,12 @@ class MyApp extends App {
     return { pageProps, auth }
   }
 
+  componentDidMount() {
+    console.log('????render')
+  }
+
   render() {
     const { Component, pageProps, auth } = this.props
-
     return (
       <Container>
         <Component {...pageProps} {...auth} />
