@@ -20,19 +20,21 @@ class BlogEditor extends React.Component {
     return { blog }
   }
 
+  updateBlog = blog => {
+    console.log('here should be update!')
+  }
+
   render() {
-    const { isAuthenticated } = this.props
+    const { isAuthenticated, blog } = this.props
     const { isSaving } = this.state
 
     return (
       <BaseLayout isAuthenticated={isAuthenticated}>
         <BasePage className="blog-editor-page">
           <SlateEditor
-            initialValue={this.props.blog}
+            initialValue={blog.story}
             isSaving={isSaving}
-            save={() => {
-              console.log('here should be update!')
-            }}
+            save={this.updateBlog}
           />
         </BasePage>
       </BaseLayout>

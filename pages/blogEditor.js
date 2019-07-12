@@ -2,6 +2,7 @@ import BaseLayout from '../components/layouts/BaseLayout'
 import BasePage from '../components/BasePage'
 import withAuth from '../components/hoc/withAuth'
 import SlateEditor from '../components/slate-editor/SlateEditor'
+import { Router } from '../routes'
 
 import { saveBlog } from '../actions/blog'
 class BlogEditor extends React.Component {
@@ -24,15 +25,11 @@ class BlogEditor extends React.Component {
     })
 
     try {
-      const result = await saveBlog(blog)
-      console.log('성공!', result)
-      this.setState({
-        isSaving: false
-      })
+      const savedBlog = await saveBlog(blog)
+      this.setState({ isSaving: false })
+      Router.pushRoute(`/blogs/${savedBlog._id}/edit`)
     } catch (err) {
-      this.setState({
-        isSaving: false
-      })
+      this.setState({ isSaving: false })
       console.error(err)
     }
   }
