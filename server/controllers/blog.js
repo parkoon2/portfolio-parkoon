@@ -38,6 +38,19 @@ exports.createBlog = (req, res) => {
   }
 }
 
+exports.updateBlog = (req, res) => {
+  const blogId = req.params.id
+  const newBlog = req.body
+
+  Blog.findByIdAndUpdate(blogId, { $set: newBlog }, (err, updatedBlog) => {
+    if (err) return res.status(422).send(err)
+    res.json(updatedBlog)
+    console.log('========= LOG START =======')
+    console.log(updatedBlog)
+    console.log('========= LOG END =========')
+  })
+}
+
 exports.getBlogById = (req, res) => {
   const blogId = req.params.id
 

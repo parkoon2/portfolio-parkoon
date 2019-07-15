@@ -2,7 +2,7 @@ import BaseLayout from '../components/layouts/BaseLayout'
 import BasePage from '../components/BasePage'
 import withAuth from '../components/hoc/withAuth'
 import SlateEditor from '../components/slate-editor/SlateEditor'
-import { getBlogById } from '../actions/blog'
+import { getBlogById, updateBlogById } from '../actions/blog'
 
 class BlogEditor extends React.Component {
   state = {
@@ -20,8 +20,27 @@ class BlogEditor extends React.Component {
     return { blog }
   }
 
-  updateBlog = blog => {
-    console.log('here should be update!')
+  updateBlog = async (story, heading) => {
+    const { blog } = this.props
+
+    const updatedBlog = {}
+    updatedBlog.title = heading.title || blog.title
+    updatedBlog.subTitle = heading.subtitle || blog.subTitle
+    updatedBlog.story = story || blog.story
+
+    this.setState({ isSaving: true })
+
+    try {
+      const res = await updateBlogById(blog._id, updatedBlog)
+
+      this.setState({ isSaving: false })
+
+      console.log('success updated', res)
+    } catch (err) {
+      const message = err.message || err
+      this.setState({ isSaving: false })
+      console.error(message)
+    }
   }
 
   render() {

@@ -25,6 +25,13 @@ export const saveBlog = async blog => {
     .catch(err => rejectPromise(err))
 }
 
+export const updateBlogById = async (id, blog) => {
+  return axiosInstance
+    .patch(`/blogs/${id}`, blog)
+    .then(res => res.data)
+    .catch(err => rejectPromise(err))
+}
+
 export const getBlogById = async id => {
   return axiosInstance
     .get(`/blogs/${id}`)

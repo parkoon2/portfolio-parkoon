@@ -87,6 +87,9 @@ export default class SlateEditor extends React.Component {
 
   onKeyDown = (event, editor, next) => {
     if (!event.ctrlKey) return next()
+    console.log(event.key)
+
+    const { isSaving } = this.props
 
     // Decide what to do based on the key code...
     switch (event.key) {
@@ -103,11 +106,19 @@ export default class SlateEditor extends React.Component {
         editor.setBlocks(isCode ? 'paragraph' : 'code')
         break
       }
+
+      case 's': {
+        event.preventDefault()
+        !isSaving && this.save()
+        break
+      }
       // Otherwise, let other plugins handle it.
       default: {
         return next()
       }
     }
+
+    next()
   }
 
   componentDidMount = () => {
