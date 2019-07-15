@@ -5,7 +5,7 @@ const ControlMenu = ({ save, isSaving }) => {
     <div className="control-menu">
       <h1 className="title"> Write Your Story...</h1>
       <div className="status-box">{isSaving ? 'Saving now...' : 'Saved!'}</div>
-      <Button /*disabled={isSaving}*/ color="success" onClick={save}>
+      <Button disabled={isSaving} color="success" onClick={save}>
         Save
       </Button>
     </div>

@@ -6,11 +6,6 @@ var lock = new AsyncLock()
 exports.createBlog = (req, res) => {
   const blogData = req.body
   const lockId = req.query.lockId
-
-  console.log('========= LOG START =======')
-  console.log(lockId)
-  console.log('========= LOG END =========')
-
   const blog = new Blog(blogData)
 
   // TODO: 유저 추가!
