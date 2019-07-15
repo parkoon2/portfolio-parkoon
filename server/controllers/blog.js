@@ -1,7 +1,15 @@
 const Blog = require('../models/blog')
 
+var AsyncLock = require('async-lock')
+var lock = new AsyncLock()
+
 exports.createBlog = (req, res) => {
   const blogData = req.body
+  const lockId = req.query.lockId
+
+  console.log('========= LOG START =======')
+  console.log(lockId)
+  console.log('========= LOG END =========')
 
   const blog = new Blog(blogData)
 
@@ -15,11 +23,24 @@ exports.createBlog = (req, res) => {
    * }
    */
 
-  blog.save((err, savedBlog) => {
-    if (err) return res.status(422).send(err)
+  if (!lock.isBusy(lockId)) {
+    lock.acquire(
+      lockId,
+      done => {
+        // Concurrency safe
+        blog.save((err, savedBlog) => {
+          done()
 
-    return res.json(savedBlog)
-  })
+          if (err) return res.status(422).send(err)
+
+          return res.json(savedBlog)
+        })
+      },
+      (err, ret) => {
+        err && console.error(err)
+      }
+    )
+  }
 }
 
 exports.getBlogById = (req, res) => {

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import uuid from 'uuid/v1'
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/api/v1',
@@ -19,7 +20,7 @@ const rejectPromise = resError => {
 
 export const saveBlog = async blog => {
   return await axiosInstance
-    .post('/blogs', blog)
+    .post(`/blogs?lockId=${uuid()}`, blog)
     .then(res => res.data)
     .catch(err => rejectPromise(err))
 }
