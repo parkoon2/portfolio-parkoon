@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Link } from '../routes'
 import moment from 'moment'
 import { getUserBlogs } from '../actions/blog'
+import DropDownButton from '../components/DropDownButton'
 
 class Blogs extends React.Component {
   static async getInitialProps() {
@@ -41,6 +42,7 @@ class Blogs extends React.Component {
             <Link href={`/blogs/${blog._id}/edit`}>
               <a>{blog.title}</a>
             </Link>
+            <DropDownButton />
           </li>
         ))}
       </ul>
