@@ -38,3 +38,9 @@ export const getBlogById = async id => {
     .then(res => res.data)
     .catch(err => rejectPromise(err))
 }
+export const getUserBlogs = async () => {
+  return axiosInstance
+    .get(`/blogs/me`)
+    .then(res => res.data)
+    .catch(err => rejectPromise(err))
+}

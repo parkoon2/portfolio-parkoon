@@ -3,6 +3,16 @@ const Blog = require('../models/blog')
 var AsyncLock = require('async-lock')
 var lock = new AsyncLock()
 
+exports.getUserBlogs = (req, res) => {
+  const userId = 'parkoon'
+
+  Blog.find({ userId }, (err, foundBlogs) => {
+    if (err) return res.status(422).send(err)
+
+    res.json(foundBlogs)
+  })
+}
+
 exports.createBlog = (req, res) => {
   const blogData = req.body
   const lockId = req.query.lockId
