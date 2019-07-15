@@ -3,6 +3,7 @@ import BasePage from '../components/BasePage'
 import withAuth from '../components/hoc/withAuth'
 import SlateEditor from '../components/slate-editor/SlateEditor'
 import { Router } from '../routes'
+import { toast } from 'react-toastify'
 
 import { saveBlog } from '../actions/blog'
 class BlogEditor extends React.Component {
@@ -27,9 +28,13 @@ class BlogEditor extends React.Component {
     try {
       const savedBlog = await saveBlog(blog)
       this.setState({ isSaving: false })
+      toast.success('Blog Saved Successfully')
       Router.pushRoute(`/blogs/${savedBlog._id}/edit`)
     } catch (err) {
       this.setState({ isSaving: false })
+      toast.success(
+        'Unexpected Error, Copy your progress and refresh browser please'
+      )
       console.error(err)
     }
   }

@@ -47,6 +47,7 @@
     "react": "^16.8.6",
     "react-datepicker": "^2.7.0",
     "react-dom": "^16.8.6",
+    "react-toastify": "^5.3.1",
     "react-typed": "^1.1.2",
     "reactstrap": "^8.0.0",
     "slate": "^0.47.4",
