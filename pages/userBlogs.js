@@ -9,7 +9,6 @@ class Blogs extends React.Component {
   static async getInitialProps() {
     let blogs = []
     try {
-      console.log('여기?')
       blogs = await getUserBlogs()
     } catch (err) {
       console.error(err)
@@ -20,8 +19,38 @@ class Blogs extends React.Component {
     }
   }
 
+  separateBlogs = blogs => {
+    let draft = []
+    let published = []
+    console.log(blogs)
+    blogs.forEach(blog => {
+      blog.status === 'draft' ? draft.push(blog) : published.push(blog)
+    })
+
+    return {
+      draft,
+      published
+    }
+  }
+
+  renderBlogs = blogs => {
+    return (
+      <ul className="user-blogs-list">
+        {blogs.map(blog => (
+          <li>
+            <Link href={`/blogs/${blog._id}/edit`}>
+              <a>{blog.title}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
   render() {
     const { isAuthenticated, blogs } = this.props
+
+    const { draft, published } = this.separateBlogs(blogs)
 
     return (
       <BaseLayout
@@ -48,10 +77,12 @@ class Blogs extends React.Component {
         <BasePage className="blog-body">
           <Row>
             <Col md="6" className="mx-auto text-center">
-              ABC
+              <h1 className="blog-status-title">Published Blogs</h1>
+              {this.renderBlogs(published)}
             </Col>
             <Col md="6" className="mx-auto text-center">
-              EFG
+              <h1 className="blog-status-title">Draft</h1>
+              {this.renderBlogs(draft)}
             </Col>
           </Row>
         </BasePage>

@@ -8,7 +8,7 @@ exports.getUserBlogs = (req, res) => {
 
   Blog.find({ userId }, (err, foundBlogs) => {
     if (err) return res.status(422).send(err)
-
+    console.log('foundBlogs', foundBlogs)
     res.json(foundBlogs)
   })
 }
@@ -55,9 +55,6 @@ exports.updateBlog = (req, res) => {
   Blog.findByIdAndUpdate(blogId, { $set: newBlog }, (err, updatedBlog) => {
     if (err) return res.status(422).send(err)
     res.json(updatedBlog)
-    console.log('========= LOG START =======')
-    console.log(updatedBlog)
-    console.log('========= LOG END =========')
   })
 }
 

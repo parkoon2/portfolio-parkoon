@@ -70,6 +70,22 @@ body {
   min-height: 100vh;
   background-color: #ecedee;
 
+  .user-blogs-list {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      font-size: 24px;
+    }
+    a {
+      color: #424242;
+    }
+  }
+
+  .blog-status-title {
+    font-weight: bold;
+  }
+
   .blog-body {
     padding: 50px 0 0 0;
   }
