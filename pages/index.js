@@ -22,7 +22,7 @@ class Index extends React.Component {
       >
         <div className="main-section">
           <div className="background-image">
-            <img src="/static/images/background-index.png" />
+            {/* <img src="/static/images/background-index.png" /> */}
           </div>
 
           <Container>

@@ -1,9 +1,9 @@
 import BaseLayout from '../components/layouts/BaseLayout'
 import BasePage from '../components/BasePage'
 import { Container, Row, Col } from 'reactstrap'
-import { Link } from '../routes'
+import { Link, Router } from '../routes'
 import moment from 'moment'
-import { getUserBlogs } from '../actions/blog'
+import { getUserBlogs, updateBlogById, deleteBlogById } from '../actions/blog'
 import DropDownButton from '../components/DropDownButton'
 
 class Blogs extends React.Component {
@@ -23,7 +23,6 @@ class Blogs extends React.Component {
   separateBlogs = blogs => {
     let draft = []
     let published = []
-    console.log(blogs)
     blogs.forEach(blog => {
       blog.status === 'draft' ? draft.push(blog) : published.push(blog)
     })
@@ -34,15 +33,60 @@ class Blogs extends React.Component {
     }
   }
 
+  updateBlogStatus = async (id, status) => {
+    try {
+      const res = await updateBlogById(id, { status })
+      Router.pushRoute(`/userBlogs`)
+      console.log(res)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  deleteBlog = async id => {
+    const isConfirm = confirm('Are you sure ?')
+    if (isConfirm) {
+      try {
+        const res = await deleteBlogById(id)
+        Router.pushRoute('/userBlogs')
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  }
+
+  createStatus = status => {
+    return status === 'draft'
+      ? { view: 'Publish Story', value: 'published' }
+      : { view: 'Make a draft', value: 'draft' }
+  }
+
+  dropdownOptions = blog => {
+    const status = this.createStatus(blog.status)
+
+    return [
+      {
+        text: status.view,
+        handlers: {
+          onClick: () => this.updateBlogStatus(blog._id, status.value)
+        }
+      },
+      {
+        text: 'Delete',
+        handlers: { onClick: () => this.deleteBlog(blog._id) }
+      }
+    ]
+  }
+
   renderBlogs = blogs => {
     return (
       <ul className="user-blogs-list">
-        {blogs.map(blog => (
-          <li>
+        {blogs.map((blog, index) => (
+          <li key={index}>
             <Link href={`/blogs/${blog._id}/edit`}>
               <a>{blog.title}</a>
             </Link>
-            <DropDownButton />
+            <DropDownButton items={this.dropdownOptions(blog)} />
           </li>
         ))}
       </ul>

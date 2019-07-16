@@ -77,7 +77,7 @@ export default class Header extends React.Component {
                 </Link>
               </NavItem>
               <NavItem className="port-navbar-item">
-                <Link href="/blog">
+                <Link href="/blogs">
                   <a className="nav-link port-navbar-link clickable">BLOG</a>
                 </Link>
               </NavItem>

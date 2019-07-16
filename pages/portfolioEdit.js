@@ -32,11 +32,6 @@ class PortfolioUpdate extends React.Component {
   editPortfolio = async data => {
     try {
       // TODO 인증관련 기능 정리하고 처리
-
-      console.log('========= LOG START =======')
-      console.log('data', data)
-      console.log('========= LOG END =========')
-
       data.userId = 'parkoon'
       const createdPortfolio = await updatePortfolio(data)
       Router.pushRoute('/portfolios')

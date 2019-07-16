@@ -14,8 +14,6 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
-    console.log('call every time..?', process.browser)
-
     const user = process.browser
       ? auth0.clientAuth()
       : auth0.serverAuth(ctx.req)
@@ -23,7 +21,6 @@ class MyApp extends App {
     if (Component.getInitialProps) {
       try {
         pageProps = await Component.getInitialProps(ctx)
-        console.log('pageProps', pageProps)
       } catch (err) {
         console.log(err)
       }

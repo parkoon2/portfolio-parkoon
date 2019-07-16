@@ -22,7 +22,20 @@ export default class DropDownButton extends React.Component {
     })
   }
 
+  renderDropItem = items => {
+    return (
+      <DropdownMenu>
+        {items.map((item, index) => (
+          <DropdownItem key={index}>
+            <div onClick={item.handlers.onClick}>{item.text}</div>
+          </DropdownItem>
+        ))}
+      </DropdownMenu>
+    )
+  }
+
   render() {
+    const { items } = this.props
     return (
       <ButtonDropdown
         className="dropdown-btn"
@@ -30,10 +43,7 @@ export default class DropDownButton extends React.Component {
         toggle={this.toggle}
       >
         <DropdownToggle caret size="sm" />
-        <DropdownMenu>
-          <DropdownItem>Make a Draft / Published Stroy</DropdownItem>
-          <DropdownItem>Delete</DropdownItem>
-        </DropdownMenu>
+        {this.renderDropItem(items)}
       </ButtonDropdown>
     )
   }

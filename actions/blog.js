@@ -32,6 +32,20 @@ export const updateBlogById = async (id, blog) => {
     .catch(err => rejectPromise(err))
 }
 
+export const deleteBlogById = async id => {
+  return axiosInstance
+    .delete(`/blogs/${id}`)
+    .then(res => res.data)
+    .catch(err => rejectPromise(err))
+}
+
+export const getBlogs = () => {
+  return axiosInstance
+    .get('/blogs')
+    .then(res => res.data)
+    .catch(err => rejectPromise(err))
+}
+
 export const getBlogById = async id => {
   return axiosInstance
     .get(`/blogs/${id}`)
@@ -41,6 +55,13 @@ export const getBlogById = async id => {
 export const getUserBlogs = async () => {
   return axiosInstance
     .get(`/blogs/me`)
+    .then(res => res.data)
+    .catch(err => rejectPromise(err))
+}
+
+export const getBlogBySlug = async slug => {
+  return axiosInstance
+    .get(`/blogs/slug/${slug}`)
     .then(res => res.data)
     .catch(err => rejectPromise(err))
 }

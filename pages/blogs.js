@@ -3,10 +3,56 @@ import BasePage from '../components/BasePage'
 import { Container, Row, Col } from 'reactstrap'
 import { Link } from '../routes'
 import moment from 'moment'
+import { getBlogs } from '../actions/blog'
 
 class Blogs extends React.Component {
+  static async getInitialProps() {
+    let blogs = []
+    try {
+      blogs = await getBlogs()
+    } catch (err) {
+      console.error(err)
+    }
+
+    return {
+      blogs
+    }
+  }
+
+  renderBlogs = blogs => {
+    console.log('========= LOG START =======')
+    console.log(blogs)
+    console.log('========= LOG END =========')
+    // author: "me"
+    // createdAt: "2019-07-12T00:50:48.438Z"
+    // slug: "this is slug"
+    // status: "published"
+    // story: "<p>this is love story!!!!!!!!!!!!~</p>"
+    // subTitle: "No Sub Title"
+    // title: "this is love story!!!!!!!!!!!!~"
+    // updatedAt: "2019-07-12T00:50:48.438Z"
+    // userId: "parkoon"
+    return blogs.map((blog, index) => (
+      <React.Fragment key={index}>
+        <div className="post-preview">
+          <Link route={`/blogs/slug/${blog.slug}`}>
+            <a>
+              <h2 className="post-title">{blog.title}</h2>
+              <h3 className="post-subtitle">{blog.subTitle}</h3>
+            </a>
+          </Link>
+          <p className="post-meta">
+            Posted by
+            <a href="#"> {blog.author} </a>
+            {moment(blog.updatedAt).format('LLLL')}
+          </p>
+        </div>
+        <hr />
+      </React.Fragment>
+    ))
+  }
   render() {
-    const { isAuthenticated } = this.props
+    const { isAuthenticated, blogs } = this.props
     return (
       <BaseLayout
         isAuthenticated={isAuthenticated}
@@ -32,58 +78,7 @@ class Blogs extends React.Component {
         <BasePage className="blog-body">
           <Row>
             <Col md="10" lg="8" className="mx-auto">
-              {
-                <React.Fragment>
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">Very Nice Blog Post</h2>
-                        <h3 className="post-subtitle">
-                          How I Start Porgramming...
-                        </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">
-                      Posted by
-                      <a href="#"> Filip Jerga </a>
-                      {moment().format('LLLL')}
-                    </p>
-                  </div>
-                  <hr />
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">Very Nice Blog Post</h2>
-                        <h3 className="post-subtitle">
-                          How I Start Porgramming...
-                        </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">
-                      Posted by
-                      <a href="#"> Filip Jerga </a>
-                      {moment().format('LLLL')}
-                    </p>
-                  </div>
-                  <hr />
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">Very Nice Blog Post</h2>
-                        <h3 className="post-subtitle">
-                          How I Start Porgramming...
-                        </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">
-                      Posted by
-                      <a href="#"> Filip Jerga </a>
-                      {moment().format('LLLL')}
-                    </p>
-                  </div>
-                  <hr />
-                </React.Fragment>
-              }
+              {this.renderBlogs(blogs)}
               <div className="clearfix">
                 <a className="btn btn-primary float-right" href="#">
                   Older Posts &rarr;
