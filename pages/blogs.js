@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Link } from '../routes'
 import moment from 'moment'
 import { getBlogs } from '../actions/blog'
+import { dotdotdot } from '../helpers/utils'
 
 class Blogs extends React.Component {
   static async getInitialProps() {
@@ -37,8 +38,8 @@ class Blogs extends React.Component {
         <div className="post-preview">
           <Link route={`/blogs/slug/${blog.slug}`}>
             <a>
-              <h2 className="post-title">{blog.title}</h2>
-              <h3 className="post-subtitle">{blog.subTitle}</h3>
+              <h2 className="post-title">{dotdotdot(blog.title)}</h2>
+              <h3 className="post-subtitle">{dotdotdot(blog.subTitle)}</h3>
             </a>
           </Link>
           <p className="post-meta">

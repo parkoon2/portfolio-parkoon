@@ -5,7 +5,6 @@ var lock = new AsyncLock()
 
 exports.getUserBlogs = (req, res) => {
   const userId = 'parkoon'
-
   Blog.find({ userId }, (err, foundBlogs) => {
     if (err) return res.status(422).send(err)
     res.json(foundBlogs)
@@ -13,10 +12,12 @@ exports.getUserBlogs = (req, res) => {
 }
 
 exports.getBlogs = (req, res) => {
-  Blog.find({ status: 'published' }, (err, foundBlogs) => {
-    if (err) return res.status(422).send(err)
-    res.json(foundBlogs)
-  })
+  Blog.find({ status: 'published' })
+    .sort({ createdAt: -1 })
+    .exec((err, foundBlogs) => {
+      if (err) return res.status(422).send(err)
+      res.json(foundBlogs)
+    })
 }
 exports.getBlogBySlug = (req, res) => {
   const slug = req.params.slug
