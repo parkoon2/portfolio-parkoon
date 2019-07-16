@@ -3,6 +3,9 @@ import { Button, Container, Row, Col } from 'reactstrap'
 import Typed from 'react-typed'
 
 class Index extends React.Component {
+  state = {
+    isFlipping: false
+  }
   roles = [
     'Developer',
     'Tech Lover',
@@ -11,8 +14,30 @@ class Index extends React.Component {
     'React.js'
   ]
 
+  componentDidMount() {
+    this.animateCard()
+  }
+
+  // TODO: 이거 뭐임...?
+  componentWillLeave() {
+    // this.cardAnimationInterval && clearInterval(this.cardAnimationInterval)
+  }
+
+  componentWillUnmount() {
+    this.cardAnimationInterval && clearInterval(this.cardAnimationInterval)
+  }
+
+  animateCard = () => {
+    this.cardAnimationInterval = setInterval(() => {
+      this.setState({
+        isFlipping: !this.state.isFlipping
+      })
+    }, 3000)
+  }
+
   render() {
     const { isAuthenticated, user } = this.props
+    const { isFlipping } = this.state
 
     return (
       <BaseLayout
@@ -29,7 +54,7 @@ class Index extends React.Component {
             <Row>
               <Col md="6">
                 <div className="hero-section">
-                  <div className={`flipper`}>
+                  <div className={`flipper ${isFlipping ? 'isFlipping' : ''}`}>
                     <div className="back">
                       <div className="hero-section-content">
                         <h2> Full Stack Web Developer </h2>

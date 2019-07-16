@@ -6,6 +6,8 @@
 @import './portfolios';
 @import './blog-editor';
 @import './blogs';
+@import './about';
+@import './cv';
 
 //components
 @import './header';
@@ -234,4 +236,18 @@ body {
       text-align: center;
     }
   }
+}
+
+.flipper {
+  transition: 1s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.flipper.isFlipping {
+  transform: rotateY(-360deg);
+}
+
+.back {
+  transform: rotateY(0deg);
 }
