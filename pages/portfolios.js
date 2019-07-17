@@ -21,7 +21,6 @@ class Portfolios extends React.Component {
   removePortfolio = async portfolio => {
     try {
       const result = await deletePortfolio(portfolio)
-      console.log(result)
       Router.pushRoute('/portfolios')
     } catch (err) {
       console.error(err)

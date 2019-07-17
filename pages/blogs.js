@@ -21,9 +21,6 @@ class Blogs extends React.Component {
   }
 
   renderBlogs = blogs => {
-    console.log('========= LOG START =======')
-    console.log(blogs)
-    console.log('========= LOG END =========')
     // author: "me"
     // createdAt: "2019-07-12T00:50:48.438Z"
     // slug: "this is slug"

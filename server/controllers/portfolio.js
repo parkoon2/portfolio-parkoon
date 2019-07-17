@@ -26,8 +26,6 @@ exports.createPortfolio = (req, res) => {
   const portfolio = new Portfolio(portfolioData)
 
   portfolio.save((err, savedPortfolio) => {
-    console.log('server error')
-    console.error(err)
     if (err) return res.status(442).send(err)
 
     return res.json(savedPortfolio)

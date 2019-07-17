@@ -15,7 +15,6 @@ class Auth {
   }
 
   login = () => {
-    console.log('login!?')
     this.auth0.authorize()
   }
 
@@ -45,7 +44,6 @@ class Auth {
     // console.log(new Date().getTime()) ----------------------------- sever: number    client: number
     // console.log(expiresAt)            ----------------------------- sever: undefined client: number
     // console.log(new Date().getTime() < expiresAt) ----------------- sever: false     client: true
-    console.log('expiresAt!!!!!!!!!!!!!!!!!!!!', expiresAt)
     return new Date().getTime() < expiresAt
   }
 

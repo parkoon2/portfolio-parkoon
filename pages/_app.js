@@ -30,9 +30,7 @@ class MyApp extends App {
     return { pageProps, auth }
   }
 
-  componentDidMount() {
-    console.log('????render')
-  }
+  componentDidMount() {}
 
   render() {
     const { Component, pageProps, auth } = this.props
