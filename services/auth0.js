@@ -1,11 +1,13 @@
 import auth0 from 'auth0-js'
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
+
+const CLIENT_ID = process.env.CLIENT_ID
 class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       domain: 'devparkoon.auth0.com',
-      clientID: 'Ob9s1fta2rmml7vPXRNBq0UnFu5Y7Cgr',
+      clientID: CLIENT_ID,
       redirectUri: `${process.env.BASE_URL}/callback`,
       responseType: 'token id_token',
       scope: 'openid profile'
@@ -34,7 +36,7 @@ class Auth {
 
     this.auth0.logout({
       returnTo: '',
-      clientID: 'Ob9s1fta2rmml7vPXRNBq0UnFu5Y7Cgr'
+      clientID: CLIENT_ID
     })
   }
 
