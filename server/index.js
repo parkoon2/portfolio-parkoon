@@ -7,6 +7,7 @@ const handle = routes.getRequestHandler(app)
 const mongoose = require('mongoose')
 const config = require('./config')
 const morgan = require('morgan')
+const compression = require('compression')
 
 const Book = require('./models/book')
 
@@ -38,6 +39,7 @@ app
   .then(() => {
     const server = express()
     server.use(express.json())
+    server.use(compression())
     // server.use(morgan('combined'))
 
     server.use('/api/v1/books', bookRouter)
