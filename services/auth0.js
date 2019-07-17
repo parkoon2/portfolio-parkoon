@@ -6,7 +6,7 @@ class Auth {
     this.auth0 = new auth0.WebAuth({
       domain: 'devparkoon.auth0.com',
       clientID: 'Ob9s1fta2rmml7vPXRNBq0UnFu5Y7Cgr',
-      redirectUri: 'http://localhost:3000/callback',
+      redirectUri: `${process.env.BASE_URL}/callback`,
       responseType: 'token id_token',
       scope: 'openid profile'
     })
