@@ -112,6 +112,11 @@ class Index extends React.Component {
             </Row>
           </Container>
         </div>
+
+        <span className="service-link">
+          {' '}
+          Illustrations by <a href="https://www.vecteezy.com">vecteezy.com</a>
+        </span>
       </BaseLayout>
     )
   }
