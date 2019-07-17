@@ -47,7 +47,10 @@ class Index extends React.Component {
       >
         <div className="main-section">
           <div className="background-image">
-            {/* <img src="/static/images/background-index.png" /> */}
+            <img
+              alt="Portfolio Land page bakcground image"
+              src="/static/images/background-index.png"
+            />
           </div>
 
           <Container>
@@ -63,6 +66,7 @@ class Index extends React.Component {
                         </div>
                       </div>
                       <img
+                        alt="Portfolio Land page bakcground image"
                         className="image"
                         src="/static/images/section-1.png"
                       />
