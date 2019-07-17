@@ -6,6 +6,7 @@ import auth0 from '../services/auth0'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/main.scss'
 import 'react-toastify/dist/ReactToastify.css'
+import Fonts from '../helpers/fonts'
 
 // 서버에서도 가장 먼저 실행되는 곳! 클라이언트에서도 가장 먼저 실행되는 곳!
 class MyApp extends App {
@@ -30,7 +31,9 @@ class MyApp extends App {
     return { pageProps, auth }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    Fonts()
+  }
 
   render() {
     const { Component, pageProps, auth } = this.props
