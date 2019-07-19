@@ -36,7 +36,6 @@ class BlogEditor extends React.Component {
       this.setState({ isSaving: false })
 
       toast.success('Blog Updated Successfully')
-      console.log('success updated', res)
     } catch (err) {
       const message = err.message || err
       this.setState({ isSaving: false })

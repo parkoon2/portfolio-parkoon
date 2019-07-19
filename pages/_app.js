@@ -6,8 +6,7 @@ import auth0 from '../services/auth0'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/main.scss'
 import 'react-toastify/dist/ReactToastify.css'
-
-const namespace = 'http://localhost:3000'
+import Fonts from '../helpers/fonts'
 
 // 서버에서도 가장 먼저 실행되는 곳! 클라이언트에서도 가장 먼저 실행되는 곳!
 class MyApp extends App {
@@ -26,14 +25,14 @@ class MyApp extends App {
       }
     }
 
-    const isSiteOwner = user[`${namespace}/role`] === 'siteOwner'
+    const isSiteOwner = user[`${process.env.NAMESPACE}/role`] === 'siteOwner'
     let auth = { user, isAuthenticated: !!user, isSiteOwner }
 
     return { pageProps, auth }
   }
 
   componentDidMount() {
-    console.log('????render')
+    Fonts()
   }
 
   render() {

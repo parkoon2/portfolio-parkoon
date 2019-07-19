@@ -7,6 +7,7 @@ const handle = routes.getRequestHandler(app)
 const mongoose = require('mongoose')
 const config = require('./config')
 const morgan = require('morgan')
+const compression = require('compression')
 
 const Book = require('./models/book')
 
@@ -38,6 +39,7 @@ app
   .then(() => {
     const server = express()
     server.use(express.json())
+    server.use(compression())
     // server.use(morgan('combined'))
 
     server.use('/api/v1/books', bookRouter)
@@ -48,9 +50,11 @@ app
       return res.json(secretData)
     })
 
-    server.use(handle).listen(3000, err => {
+    const PORT = process.env.PORT || 3000
+
+    server.use(handle).listen(PORT, err => {
       if (err) throw err
-      console.log('> Ready on http://localhost:3000')
+      console.log('> Ready on ' + PORT)
     })
   })
   .catch(ex => {

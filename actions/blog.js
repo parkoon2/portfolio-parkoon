@@ -2,7 +2,7 @@ import axios from 'axios'
 import uuid from 'uuid/v1'
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api/v1',
+  baseURL: `${process.env.BASE_URL}/api/v1`,
   timeout: 3 * 1000
 })
 

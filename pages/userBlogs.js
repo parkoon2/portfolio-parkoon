@@ -37,7 +37,6 @@ class Blogs extends React.Component {
     try {
       const res = await updateBlogById(id, { status })
       Router.pushRoute(`/userBlogs`)
-      console.log(res)
     } catch (err) {
       console.error(err)
     }

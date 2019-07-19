@@ -36,7 +36,6 @@ class PortfolioUpdate extends React.Component {
       const createdPortfolio = await updatePortfolio(data)
       Router.pushRoute('/portfolios')
     } catch (err) {
-      console.log('----- error -----')
       console.error(err)
     }
   }

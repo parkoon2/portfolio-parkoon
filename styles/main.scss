@@ -12,9 +12,16 @@
 //components
 @import './header';
 
+.montserrat-loaded {
+  html,
+  body {
+    font-family: 'Montserrat', 'Helvetica';
+  }
+}
+
 html,
 body {
-  font-family: 'Montserrat', 'Helvetica' !important;
+  font-family: 'Helvetica';
 }
 
 // --------- BASE PAGE -------------

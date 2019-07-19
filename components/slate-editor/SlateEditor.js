@@ -87,7 +87,6 @@ export default class SlateEditor extends React.Component {
 
   onKeyDown = (event, editor, next) => {
     if (!event.ctrlKey) return next()
-    console.log(event.key)
 
     const { isSaving } = this.props
 

@@ -113,3 +113,14 @@
   border: 2px solid #f37d49;
   box-shadow: -17px 13px 41px rgba(13, 78, 158, 0.3);
 }
+
+.service-link {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  font-style:italic;
+
+  > a {
+    color: white;
+  }
+}
