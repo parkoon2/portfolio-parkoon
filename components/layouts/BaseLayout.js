@@ -36,7 +36,10 @@ const BaseLayout = props => {
           property="og:description"
           content="My name is Parkoon and I am an experienced software engineer and freelance developer."
         />
-        {/* <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"/> */}
+        <link
+          href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+          rel="stylesheet"
+        />
         {/* {cannonical && <link rel="cannonical" href={`${process.env.BASE_URL}${cannonical}`}/>} */}
         <link rel="icon" type="image/ico" href="/static/favicon.ico" />
       </Head>
