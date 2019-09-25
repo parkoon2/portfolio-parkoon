@@ -27,6 +27,8 @@ const secretData = [
   }
 ]
 
+console.log(process.env)
+
 mongoose
   .connect(config.DB_URI, { useNewUrlParser: true, useFindAndModify: false })
   .then(() => {
